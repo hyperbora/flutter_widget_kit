@@ -1,5 +1,5 @@
-import 'package:coupon_place/src/shared/widgets/card_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_kit/src/layout/card_container.dart';
 
 class CardSection extends StatelessWidget {
   final String? label;
