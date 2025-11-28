@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+
+class CardContainer extends StatelessWidget {
+  final dynamic leading;
+  final Widget title;
+  final Color? color;
+  final Widget? trailing;
+  final Function()? onTap;
+  final EdgeInsetsGeometry? padding;
+
+  const CardContainer({
+    super.key,
+    this.leading,
+    required this.title,
+    this.color,
+    this.trailing,
+    this.onTap,
+    this.padding,
+  });
+
+  Widget leadingWidget(BuildContext context) {
+    final Color effectiveColor = color ?? Theme.of(context).colorScheme.primary;
+    if (leading is IconData) {
+      return CircleAvatar(
+        backgroundColor: effectiveColor.withValues(alpha: 0.15),
+        child: Icon(leading, color: effectiveColor),
+      );
+    }
+    if (leading != null) {
+      return leading;
+    }
+    return const SizedBox.shrink();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Color effectiveColor = color ?? Theme.of(context).colorScheme.primary;
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          splashColor: effectiveColor.withValues(alpha: 0.2),
+          highlightColor: effectiveColor.withValues(alpha: 0.1),
+          child: Padding(
+            padding:
+                padding ??
+                const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+            child: Row(
+              children: [
+                if (leading != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: leadingWidget(context),
+                  ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [title],
+                  ),
+                ),
+                if (trailing != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: trailing,
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
