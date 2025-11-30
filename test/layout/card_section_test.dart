@@ -87,5 +87,28 @@ void main() {
       );
       expect(cardContainerWidget.contentPadding, contentPadding);
     });
+
+    testWidgets('applies backgroundColor correctly', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: CardSection(
+              backgroundColor: Colors.red,
+              children: const [Text('Child')],
+            ),
+          ),
+        ),
+      );
+
+      final cardContainerFinder = find.byType(CardSection);
+      expect(cardContainerFinder, findsOneWidget);
+
+      final cardContainerWidget = tester.widget<CardSection>(
+        cardContainerFinder,
+      );
+      expect(cardContainerWidget.backgroundColor, Colors.red);
+    });
   });
 }
