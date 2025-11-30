@@ -16,14 +16,19 @@ void main() {
       expect(find.byKey(testKey), findsOneWidget);
     });
 
-    testWidgets('기본 padding 이 적용되는지 확인 (Default padding applied)', (
+    testWidgets('기본 padding 이 적용되는지 확인 (Default contentPadding applied)', (
       tester,
     ) async {
       await tester.pumpWidget(
         const MaterialApp(home: BoxContainer(child: Text('Test'))),
       );
 
-      final container = tester.widget<Container>(find.byType(Container));
+      final container = tester.widget<Container>(
+        find.descendant(
+          of: find.byType(BoxContainer),
+          matching: find.byType(Container),
+        ),
+      );
       final padding = container.padding as EdgeInsets;
 
       expect(padding, const EdgeInsets.all(15));
@@ -36,10 +41,33 @@ void main() {
         ),
       );
 
-      final container = tester.widget<Container>(find.byType(Container));
-      final padding = container.padding as EdgeInsets;
+      final paddingWidget = tester.widget<Padding>(find.byType(Padding).first);
+      final padding = paddingWidget.padding as EdgeInsets;
 
       expect(padding, const EdgeInsets.all(30));
+    });
+
+    testWidgets('커스텀 contentPadding 적용 확인 (Custom contentPadding applied)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: BoxContainer(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Text('CP'),
+          ),
+        ),
+      );
+
+      final container = tester.widget<Container>(
+        find.descendant(
+          of: find.byType(BoxContainer),
+          matching: find.byType(Container),
+        ),
+      );
+      final padding = container.padding as EdgeInsets;
+
+      expect(padding, const EdgeInsets.symmetric(horizontal: 10, vertical: 20));
     });
 
     testWidgets('배경색(backgroundColor) 적용 확인 (Background color applied)', (
