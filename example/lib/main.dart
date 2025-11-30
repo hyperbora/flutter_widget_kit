@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -92,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CardSection(
               label: 'Section Label',
               padding: const EdgeInsets.symmetric(vertical: 1),
-              contentPadding: const EdgeInsets.all(32),
+              contentPadding: const EdgeInsets.all(8),
               children: const [
                 Text('Child 1 in CardSection'),
                 Text('Child 2 in CardSection'),
@@ -123,6 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       Icon(Icons.edit, size: 18, color: Colors.grey),
                     ],
                   ),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('inner1 tapped')),
+                    );
+                  },
                 ),
                 CardContainer(
                   leading: Icons.data_array,
@@ -143,6 +149,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       Icon(Icons.check, size: 18, color: Colors.grey),
                     ],
                   ),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('inner2 tapped')),
+                    );
+                  },
                 ),
               ],
             ),
