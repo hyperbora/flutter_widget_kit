@@ -6,6 +6,7 @@ class CardSection extends StatelessWidget {
   final List<Widget> children;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? contentPadding;
+  final Color? backgroundColor;
 
   const CardSection({
     super.key,
@@ -13,6 +14,7 @@ class CardSection extends StatelessWidget {
     required this.children,
     this.padding,
     this.contentPadding,
+    this.backgroundColor,
   });
 
   @override
@@ -43,6 +45,7 @@ class CardSection extends StatelessWidget {
           ),
         CardContainer(
           color: Theme.of(context).colorScheme.surface,
+          backgroundColor: backgroundColor,
           padding: padding,
           contentPadding: contentPadding,
           title: Column(

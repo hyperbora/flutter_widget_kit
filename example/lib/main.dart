@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 16),
             CardSection(
+              backgroundColor: Colors.green.shade50,
               label: 'Section Label',
               padding: const EdgeInsets.symmetric(vertical: 1),
               contentPadding: const EdgeInsets.all(8),
