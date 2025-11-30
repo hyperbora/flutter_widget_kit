@@ -4,8 +4,16 @@ import 'package:flutter_widget_kit/src/layout/card_container.dart';
 class CardSection extends StatelessWidget {
   final String? label;
   final List<Widget> children;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? contentPadding;
 
-  const CardSection({super.key, this.label, required this.children});
+  const CardSection({
+    super.key,
+    this.label,
+    required this.children,
+    this.padding,
+    this.contentPadding,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,8 @@ class CardSection extends StatelessWidget {
           ),
         CardContainer(
           color: Theme.of(context).colorScheme.surface,
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+          padding: padding,
+          contentPadding: contentPadding,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: childrenWithDivider,
