@@ -131,5 +131,21 @@ void main() {
         const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
       );
     });
+
+    testWidgets('배경색 적용 확인 (Background color applied)', (tester) async {
+      const backgroundColor = Colors.red;
+
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CardContainer(
+            title: Text('T'),
+            backgroundColor: backgroundColor,
+          ),
+        ),
+      );
+
+      final cardWidget = tester.widget<Card>(find.byType(Card));
+      expect(cardWidget.color, backgroundColor);
+    });
   });
 }

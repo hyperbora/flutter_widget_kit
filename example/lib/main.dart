@@ -80,6 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 16),
             CardContainer(
               title: const Text('CardContainer Title'),
+              backgroundColor: Colors.yellow.shade50,
+              color: Colors.red.shade100,
               leading: Icons.info,
               trailing: const Icon(Icons.arrow_forward),
               contentPadding: const EdgeInsets.all(16),

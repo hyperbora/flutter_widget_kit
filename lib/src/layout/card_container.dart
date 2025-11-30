@@ -4,6 +4,7 @@ class CardContainer extends StatelessWidget {
   final dynamic leading;
   final Widget title;
   final Color? color;
+  final Color? backgroundColor;
   final Widget? trailing;
   final Function()? onTap;
   final EdgeInsetsGeometry? contentPadding;
@@ -14,6 +15,7 @@ class CardContainer extends StatelessWidget {
     this.leading,
     required this.title,
     this.color,
+    this.backgroundColor,
     this.trailing,
     this.onTap,
     this.contentPadding,
@@ -37,12 +39,14 @@ class CardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color effectiveColor = color ?? Theme.of(context).colorScheme.primary;
+    final Color effectiveBackgroundColor = backgroundColor ?? Colors.white;
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         margin: const EdgeInsets.symmetric(vertical: 8),
+        color: effectiveBackgroundColor,
         child: Material(
           color: Colors.transparent,
           child: InkWell(
