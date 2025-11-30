@@ -6,6 +6,7 @@ class CardContainer extends StatelessWidget {
   final Color? color;
   final Widget? trailing;
   final Function()? onTap;
+  final EdgeInsetsGeometry? contentPadding;
   final EdgeInsetsGeometry? padding;
 
   const CardContainer({
@@ -15,6 +16,7 @@ class CardContainer extends StatelessWidget {
     this.color,
     this.trailing,
     this.onTap,
+    this.contentPadding,
     this.padding,
   });
 
@@ -35,41 +37,44 @@ class CardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color effectiveColor = color ?? Theme.of(context).colorScheme.primary;
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          splashColor: effectiveColor.withValues(alpha: 0.2),
-          highlightColor: effectiveColor.withValues(alpha: 0.1),
-          child: Padding(
-            padding:
-                padding ??
-                const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-            child: Row(
-              children: [
-                if (leading != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: leadingWidget(context),
+    return Padding(
+      padding: padding ?? EdgeInsets.zero,
+      child: Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(16),
+            splashColor: effectiveColor.withValues(alpha: 0.2),
+            highlightColor: effectiveColor.withValues(alpha: 0.1),
+            child: Padding(
+              padding:
+                  contentPadding ??
+                  const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
+              child: Row(
+                children: [
+                  if (leading != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: leadingWidget(context),
+                    ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [title],
+                    ),
                   ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [title],
-                  ),
-                ),
-                if (trailing != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: trailing,
-                  ),
-              ],
+                  if (trailing != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: trailing,
+                    ),
+                ],
+              ),
             ),
           ),
         ),
